@@ -1,14 +1,26 @@
 // external imports
-const express = require('express')
+const express = require("express");
 
 // internal imports
-const { register } = require('../controller/authController')
-
+const { register, login } = require("../controller/authController");
+const {
+   registerValidators,
+   registerValidatorsHandler,
+   loginValidators,
+   loginValidatorsResult,
+} = require("../middlewares/validation/userValidation");
 // define router interface
-const router = express.Router()
+const router = express.Router();
 
+// login
+router.post("/login", loginValidators, loginValidatorsResult, login);
 
-// sign up router
-router.post('/register', register) 
+// register
+router.post(
+   "/register",
+   registerValidators,
+   registerValidatorsHandler,
+   register
+);
 
-module.exports = router
+module.exports = router;
